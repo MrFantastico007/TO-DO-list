@@ -16,26 +16,26 @@ body {
   padding-left: 10px;
   font-family: "Caveat", cursive;
   font-size: 20px;
-  margin-bottom: 15px; /* add more spacing under the textbox */
+  margin-bottom: 15px; 
   display: block;
   margin-left: auto;
-  margin-right: auto; /* center the input */
+  margin-right: auto; 
 }
 
-/* Container for buttons under the textbox */
+
 .room-btn-container {
-  text-align: center; /* center buttons */
+  text-align: center; 
   margin-top: 5px;
 }
 
-/* General button style for room actions */
+
 .room-btn {
   height: 40px;
-  min-width: 140px; /* slightly wider for better appearance */
+  min-width: 140px; 
   border: none;
   border-radius: 5px;
   font-family: "Caveat", cursive;
-  font-size: 18px; /* slightly smaller to fit under input nicely */
+  font-size: 18px; 
   background-color: #fff685;
   cursor: pointer;
   transition: 0.3s;
@@ -52,7 +52,7 @@ body {
   color: white;
 }
 
-/* Leave room button styling */
+
 #leaveRoom {
   background-color: #ff6b6b;
 }
@@ -94,10 +94,10 @@ body {
 }
 
 #addtask {
-    height: 40px;           /* same as input */
+    height: 40px;           
     width: 40px;
     border: none;
-    border-radius: 0 5px 5px 0; /* round only right side */
+    border-radius: 0 5px 5px 0; 
     display: inline-block;
     justify-content: center;
     align-items: center;
@@ -117,14 +117,14 @@ body {
     background-color: white;
     display: flex;
     align-items: center;        
-    justify-content: space-between; /* text left, buttons right */
+    justify-content: space-between; 
     margin-top: 1rem;
     width: 88%;
     border-radius: 5px;
     padding: 5px 10px;
 }
 
-/* text styles */
+
 .task li {
     list-style: none;
     font-family: "Caveat", cursive;
@@ -132,7 +132,7 @@ body {
     flex: 1;   
 }
 
-/* group buttons neatly */
+
 .checktask, .deletetask {
     border: none;
     background: none;
@@ -151,4 +151,5 @@ body {
 
 .hidden {
   display: none;
+
 }
