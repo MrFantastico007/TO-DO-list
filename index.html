@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Screen 1 -->
+    <div id="roomScreen" class="container">
+      <h2>Join or Create a Room</h2>
+      <input type="text" id="roomInput" placeholder="Enter Room ID..." />
+
+      <!-- Buttons container -->
+      <div class="room-btn-container">
+        <button class="room-btn" id="createRoom">Create Room</button>
+        <button class="room-btn" id="joinRoom">Join Room</button>
+      </div>
+    </div>
+
+    <!-- Screen 2 -->
+    <div id="todoScreen" class="container hidden">
+      <h2>Your To-Do List (Room: <span id="roomIdDisplay"></span>)</h2>
+      <input type="text" id="taskInput" placeholder="Add a new task..." />
+      <button id="addtask"><i class="fa-solid fa-plus"></i></button>
+      <div class="taskcontainer"></div>
+      <button class="room-btn" id="leaveRoom">Leave Room</button>
+    </div>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
