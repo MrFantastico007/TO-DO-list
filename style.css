@@ -1,13 +1,17 @@
 body {
-    background-color: #0049b7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  background-color: #0049b7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-
 /* ---------- Room Screen Styling ---------- */
+h2 {
+  font-family: "Caveat", cursive;
+}
 #roomInput {
   width: 80%;
   height: 40px;
@@ -16,26 +20,24 @@ body {
   padding-left: 10px;
   font-family: "Caveat", cursive;
   font-size: 20px;
-  margin-bottom: 15px; 
+  margin-bottom: 15px;
   display: block;
   margin-left: auto;
-  margin-right: auto; 
+  margin-right: auto;
 }
 
-
 .room-btn-container {
-  text-align: center; 
+  text-align: center;
   margin-top: 5px;
 }
 
-
 .room-btn {
   height: 40px;
-  min-width: 140px; 
+  min-width: 140px;
   border: none;
   border-radius: 5px;
   font-family: "Caveat", cursive;
-  font-size: 18px; 
+  font-size: 18px;
   background-color: #fff685;
   cursor: pointer;
   transition: 0.3s;
@@ -52,7 +54,6 @@ body {
   color: white;
 }
 
-
 #leaveRoom {
   background-color: #ff6b6b;
 }
@@ -65,84 +66,110 @@ body {
   background-color: #9d0208;
 }
 
-
 .container {
-    background-color: #00ddff;
-    width: 560px;
-    border-radius: 10px;
-    padding-top: 5px;
-    padding-left: 10px;
-    padding-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background-color: #00ddff;
+  width: 90%;
+  max-width: 560px;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.taskcontainer {
+  overflow-y: auto;
+  max-height: 60vh; 
+  margin-top: 10px;
 }
 
 #heading {
-    color:#fff685;
-    font-family: "Caveat", cursive;
-    font-size: 32px;
-    margin-bottom: 5px;
+  color: #fff685;
+  font-family: "Caveat", cursive;
+  font-size: 32px;
+  margin-bottom: 5px;
+}
+
+.input-group {
+  display: flex;
+  width: 85%;
+  margin: 0 auto 10px auto;
 }
 
 #taskInput {
-    width: 85%;
-    height: 40px;
-    border-radius: 5px;
-    border: none;
-    padding-left: 10px;
-    font-family: "caveat", cursive;
-    font-size: 20px;
+  flex: 1;
+  border-radius: 5px 0 0 5px;
+  height: 40px;
+  padding: 5px 10px;
+  font-family: "Caveat", cursive;
+  font-size: 16px;
+  resize: none;
+  overflow-y: auto;
+  overflow-x: auto;
+  white-space: pre;
+  box-sizing: border-box;
+  min-height: 40px;
+  /* max-height: 150px;  */
 }
 
 #addtask {
-    height: 40px;           
-    width: 40px;
-    border: none;
-    border-radius: 0 5px 5px 0; 
-    display: inline-block;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff685;
-    cursor: pointer;
-    transition: .3s;
+  width: 40px;
+  height: 40px;
+  border-radius: 0 5px 5px 0;
+  background-color: #fff685;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 2px;
 }
 #addtask:hover {
-    background-color: #f75990;
+  background-color: #f75990;
 }
 
 #addtask:active {
-    background-color: rgba(82, 19, 41, 0.7);
+  background-color: rgba(82, 19, 41, 0.7);
 }
 
 .task {
-    background-color: white;
-    display: flex;
-    align-items: center;        
-    justify-content: space-between; 
-    margin-top: 1rem;
-    width: 88%;
-    border-radius: 5px;
-    padding: 5px 10px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  width: 88%;
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 
-
+/* text styles */
 .task li {
     list-style: none;
     font-family: "Caveat", cursive;
-    font-size: 20px;
-    flex: 1;   
-}
-
-
-.checktask, .deletetask {
-    border: none;
-    background: none;
-    cursor: pointer;
     font-size: 18px;
-    margin-left: 10px;
+    flex: 1;
+    overflow-wrap: break-word; 
+    white-space: pre-wrap;     
+    word-break: break-word;    
 }
 
-.checktask i { color: green; }
-.deletetask i { color: red; }
+/* group buttons neatly */
+.checktask,
+.deletetask {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.checktask i {
+  color: green;
+}
+.deletetask i {
+  color: red;
+}
 
 .completed {
   text-decoration: line-through;
@@ -151,6 +178,4 @@ body {
 
 .hidden {
   display: none;
-
 }
-
