@@ -91,9 +91,38 @@ function loadTasks() {
 }
 
 createRoomBtn.addEventListener("click", () => {
-  const roomId = Math.random().toString(36).substring(2, 8); // random 6-char ID
+  const roomId = Math.random().toString(36).substring(2, 8);
+
+  const roomRef = ref(db, `rooms/${roomId}`);
+  set(roomRef, {
+    createdAt: Date.now(),
+    tasks: {}             
+  });
+
   enterRoom(roomId);
 });
+
+
+function autoDeleteExpiredRooms() {
+  const roomsRef = ref(db, "rooms");
+  
+  onValue(roomsRef, (snapshot) => {
+    snapshot.forEach((child) => {
+      const room = child.val();
+      const roomKey = child.key;
+
+      const oneDay = 24 * 60 * 60 * 1000;
+      if (Date.now() - room.createdAt > oneDay) {
+        remove(ref(db, `rooms/${roomKey}`));
+        console.log(`Deleted expired room: ${roomKey}`);
+      }
+    });
+  });
+}
+
+autoDeleteExpiredRooms();
+
+
 
 // Join an existing room by typing ID
 joinRoomBtn.addEventListener("click", () => {
