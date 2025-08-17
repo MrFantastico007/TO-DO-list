@@ -36,8 +36,15 @@
     <!-- Screen 2 -->
     <div id="todoScreen" class="container hidden">
       <h2>Your To-Do List (Room: <span id="roomIdDisplay"></span>)</h2>
-      <input type="text" id="taskInput" placeholder="Add a new task..." />
-      <button id="addtask"><i class="fa-solid fa-plus"></i></button>
+      <div class="input-group">
+        <textarea
+          id="taskInput"
+          placeholder="Add a new task..."
+          rows="3"
+        ></textarea>
+        <button id="addtask"><i class="fa-solid fa-plus"></i></button>
+      </div>
+
       <div class="taskcontainer"></div>
       <button class="room-btn" id="leaveRoom">Leave Room</button>
     </div>
