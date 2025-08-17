@@ -15,7 +15,7 @@ _________________________________
 
 🔄 Automatic sync across devices
 
-🎨 Clean ui (will make it respinsive in future)
+🎨 Clean and responsive ui
 
 📱 App-like experience when added to mobile home screen (favicon made using [favicon.io] (https://favicon.io/))
 
