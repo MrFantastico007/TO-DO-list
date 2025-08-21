@@ -29,16 +29,37 @@ const addtask = document.getElementById("addtask");
 const taskcontainer = document.querySelector(".taskcontainer");
 const input = document.getElementById("taskInput");
 
-addtask.addEventListener("click", function () {
+
+
+function updateRoomActivity(roomId) {
+  const roomRef = ref(db, `rooms/${roomId}/lastActive`);
+  set(roomRef, Date.now());
+}
+
+
+
+function addTask() {
   if (!input.value.trim()) {
     alert("please enter a task!!");
     return;
   }
   if (!currentRoom) return;
+
   const taskref = ref(db, `rooms/${currentRoom}/tasks`);
   push(taskref, { text: input.value, completed: false });
+
+  updateRoomActivity(currentRoom);
   input.value = "";
+}
+
+addtask.addEventListener("click", addTask);
+input.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    addTask();
+  }
 });
+
+
 
 function loadTasks() {
   if (!currentRoom) return;
@@ -61,9 +82,23 @@ function loadTasks() {
       } else {
         li.classList.remove("completed");
       }
-
       task.appendChild(li);
 
+      // ✅ Copy task text
+      let copybtn = document.createElement("button");
+      copybtn.innerHTML = '<i class="fa-solid fa-copy"></i>';
+      copybtn.classList.add("copytask");
+      copybtn.addEventListener("click", () => {
+        navigator.clipboard.writeText(taskdata.text).then(() => {
+          copybtn.innerHTML = '<i class="fa-solid fa-check"></i>'; 
+          setTimeout(() => {
+            copybtn.innerHTML = '<i class="fa-solid fa-copy"></i>'; 
+          }, 1000);
+        });
+      });
+      task.appendChild(copybtn);
+
+      // ✅ Complete task
       let checkbtn = document.createElement("button");
       checkbtn.innerHTML = '<i class="fa-solid fa-check"></i>';
       checkbtn.classList.add("checktask");
@@ -73,15 +108,17 @@ function loadTasks() {
           text: taskdata.text,
           completed: !taskdata.completed,
         });
+        updateRoomActivity(currentRoom);
       });
-
       task.appendChild(checkbtn);
 
+      // ✅ Delete task
       let deletebtn = document.createElement("button");
       deletebtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
       deletebtn.classList.add("deletetask");
       deletebtn.addEventListener("click", () => {
         remove(ref(db, `rooms/${currentRoom}/tasks/${taskID}`));
+        updateRoomActivity(currentRoom);
       });
       task.appendChild(deletebtn);
 
@@ -90,41 +127,44 @@ function loadTasks() {
   });
 }
 
+
+
+//  Create room
 createRoomBtn.addEventListener("click", () => {
   const roomId = Math.random().toString(36).substring(2, 8);
 
   const roomRef = ref(db, `rooms/${roomId}`);
   set(roomRef, {
     createdAt: Date.now(),
-    tasks: {}             
+    lastActive: Date.now(), // 🔥 track activity
+    tasks: {},
   });
 
   enterRoom(roomId);
 });
 
 
+//  Auto delete rooms inactive for 24h
 function autoDeleteExpiredRooms() {
   const roomsRef = ref(db, "rooms");
-  
+
   onValue(roomsRef, (snapshot) => {
     snapshot.forEach((child) => {
       const room = child.val();
       const roomKey = child.key;
 
       const oneDay = 24 * 60 * 60 * 1000;
-      if (Date.now() - room.createdAt > oneDay) {
+      if (Date.now() - room.lastActive > oneDay) {
         remove(ref(db, `rooms/${roomKey}`));
-        console.log(`Deleted expired room: ${roomKey}`);
+        console.log(`Deleted inactive room: ${roomKey}`);
       }
     });
   });
 }
-
 autoDeleteExpiredRooms();
 
 
-
-// Join an existing room by typing ID
+//  Join room
 joinRoomBtn.addEventListener("click", () => {
   const roomId = roomInput.value.trim();
   if (!roomId) {
@@ -134,12 +174,16 @@ joinRoomBtn.addEventListener("click", () => {
   enterRoom(roomId);
 });
 
-// Leave room
+
+//  Leave room
 leaveRoomBtn.addEventListener("click", () => {
   currentRoom = null;
   todoScreen.classList.add("hidden");
   roomScreen.classList.remove("hidden");
 });
+
+
+//  Enter room function
 function enterRoom(roomId) {
   currentRoom = roomId;
   roomIdDisplay.innerText = roomId;
@@ -147,5 +191,6 @@ function enterRoom(roomId) {
   roomScreen.classList.add("hidden");
   todoScreen.classList.remove("hidden");
 
+  updateRoomActivity(roomId); 
   loadTasks();
 }
